@@ -1,0 +1,1390 @@
+﻿project
+begin
+  projectid = {0146BB97-FB34-450A-89C5-C2C9583F9FE5}
+  target
+  begin
+    name = Default
+    targetid = {21E8817B-F8CC-47CC-82CC-1BDB9DD1B5A3}
+    rootaction
+    begin
+      action.try
+      begin
+        id = {71277EBD-495B-49C0-86CC-FE9F3D3C8DE8}
+        action.target.execute
+        begin
+          actionlistid = {EF002FFF-7D86-4447-8FD3-D61120995F39}
+          id = {8C3047A0-BE3E-4C80-937E-565E1EF50A2E}
+        end
+        action.target.execute
+        begin
+          actionlistid = {794D7E54-7F68-4E51-B542-E96C5DE11865}
+          id = {BF37E72E-2548-447F-9B93-1AB8B097A7D1}
+        end
+        action.target.execute
+        begin
+          actionlistid = {F42B0195-67A5-4AA3-8CCE-9413A84371F6}
+          id = {3D656BD8-F418-4A36-8C98-54B6888B5053}
+        end
+        action.target.execute
+        begin
+          actionlistid = {3EAD6FE0-1625-44C5-A97B-7EB98CA1CEBA}
+          id = {FBAB9B03-0B1D-4F10-BD8D-5AD69E537037}
+        end
+        action.target.execute
+        begin
+          actionlistid = {FE3D81EB-E398-4D60-9BFC-36AB79A4BED7}
+          id = {C21605E9-DB45-4863-A889-EA757CA79198}
+        end
+        action.target.execute
+        begin
+          actionlistid = {37E16165-92A1-45DC-9A89-9198D7ADAFA9}
+          id = {CCE8F082-E3C9-4A51-A8EB-001F4B7E69F0}
+        end
+      end
+      action.finally
+      begin
+        id = {6D68FB57-99F4-4614-9FFA-DC96BB166674}
+        action.target.execute
+        begin
+          actionlistid = {6A0AD0E5-225D-48A2-AFFB-4510087E8D52}
+          id = {893D5882-45E3-4998-A85F-5650C056FD31}
+        end
+      end
+      action.end
+      begin
+        id = {DC8370D6-4564-4A8E-A450-342117A00CD6}
+      end
+    end
+  end
+  target
+  begin
+    name = Initialize
+    targetid = {EF002FFF-7D86-4447-8FD3-D61120995F39}
+    rootaction
+    begin
+      action.git.fetch
+      begin
+        actiontypeid = {972F3693-E657-4BC4-9DAF-8F798900631A}
+        customactionname = "Git Fetch"
+        enabletimeout = false
+        id = {03706DD4-F3FB-4B17-B748-63760C572008}
+        impersonateusenetcredonly = false
+        impersonateuser = false
+        terminateontimeout = true
+        timeoutlength = 2
+        as.localrepos = %FBPROJECTDIR%\\..
+        as.isquiet = False
+        as.isverbose = False
+        as.isappend = False
+        as.isforce = False
+        as.isnotags = False
+        as.istags = False
+        as.iskeep = 0
+        as.isupdateheadok = False
+        as.isdepth = 0
+        as.depth = 1
+        as.fetch = Repository
+        as.isunshallow = False
+        as.isupdateshallow = False
+        as.isprune = False
+        as.isprunetags = False
+        as.issetupstream = False
+        as.isshowforcedupdates = False
+        as.isnoshowforcedupdates = False
+        as.isjobs = False
+        as.jobs = 1
+        as.usecredentialhelper = False
+      end
+      action.git.generic
+      begin
+        actiontypeid = {9FE3B354-A721-491E-86BF-19CF66F92F24}
+        customactionname = "Git Generic"
+        description = "Git config add exception for admin user"
+        enabletimeout = false
+        id = {B0A58DE3-E204-4F94-BD01-4F7BCC1CEFF8}
+        impersonateusenetcredonly = false
+        impersonateuser = false
+        terminateontimeout = true
+        timeoutlength = 2
+        as.localrepos = %FBPROJECTDIR%\\..
+        as.command = config
+        as.commandarguments = "--global --add safe.directory %FBPROJECTDIR%\\.."
+        as.usecredentialhelper = False
+      end
+      action.git.generic
+      begin
+        actiontypeid = {9FE3B354-A721-491E-86BF-19CF66F92F24}
+        customactionname = "Git Generic"
+        description = "Git Check Status of local repo"
+        enabletimeout = false
+        id = {FAD91D8D-42D0-4FCF-BBC1-1DC1B110537F}
+        impersonateusenetcredonly = false
+        impersonateuser = false
+        logtovariable = TMP_Git_Status
+        terminateontimeout = true
+        timeoutlength = 2
+        as.localrepos = %FBPROJECTDIR%\\..
+        as.command = status
+        as.commandarguments = -sb
+        as.usecredentialhelper = False
+      end
+      action.ifthen
+      begin
+        expandactionlogtitle = false
+        id = {9D8CF11B-7990-43DB-BCE8-A94620B3BEA0}
+        lhsstoragestring = "%TMP_Git_Status%" +
+                           ""
+        operatorsstoragestring = "<\>" +
+                                 ""
+        resultinlogtitle = true
+        rhsstoragestring = "## main...origin/main" +
+                           ""
+        shortcircuitevaluation = true
+        termjoiner = jwOr
+        action.interactive.askquestion
+        begin
+          answeraction = FailOnCancel
+          defaultiscancel = false
+          dialogcaption = Question?
+          id = {F8E1FC9A-B53B-4CA5-9256-EE1A41FDFBA8}
+          prompttext = "Das Projektverzeichnis hat lokale Änderungen. Soll trotzdem ein Build durchgeführt werden?"
+          timedoutresult = 0
+          timeout = 0
+          usetimeout = false
+          useyesandno = true
+        end
+      end
+      action.variables.loadfromini
+      begin
+        createvarininiifnotexists = false
+        failifvariablenotdefined = true
+        failifvariablenotininifile = true
+        id = {1572C7B4-F1A0-48F9-B470-262154BD96C0}
+        ignorefilenotfound = false
+        inifile = %FBPROJECTDIR%\\FinalBuilder.ini
+        sectionname = FBVariables
+        variables = "CFG_Build_Root" +
+                    "CFG_Company_Name" +
+                    "CFG_Credentials_Filename" +
+                    "CFG_Delphi_Icon" +
+                    "CFG_Delphi_Project" +
+                    "VERSION_Major" +
+                    "VERSION_Minor" +
+                    "CFG_Product_Name" +
+                    "VERSION_Release" +
+                    "CFG_Repo_Url" +
+                    ""
+        variabletypes = "String" +
+                        "String" +
+                        "String" +
+                        "String" +
+                        "String" +
+                        "String" +
+                        "String" +
+                        "String" +
+                        "String" +
+                        "String" +
+                        ""
+      end
+      action.variables.loadfromini
+      begin
+        createvarininiifnotexists = false
+        description = "Load Variables from INI [%CFG_Credentials_Filename%, Variables: CertificateFilename,CertificatePassword,GitAccessToken,GitUsername]"
+        failifvariablenotdefined = true
+        failifvariablenotininifile = true
+        id = {5479C7F6-DD6D-4A2D-B5F3-228F17DC7A23}
+        ignorefilenotfound = false
+        inifile = %CFG_Credentials_Filename%
+        sectionname = FBVariables
+        variables = "CFG_Certificate_Filename" +
+                    "CFG_Certificate_Password" +
+                    "CFG_Git_AccessToken" +
+                    "CFG_Git_Username" +
+                    ""
+        variabletypes = "String" +
+                        "String" +
+                        "String" +
+                        "String" +
+                        ""
+      end
+      action.interactive.promptforvariablesenh
+      begin
+        description = "Enhanced Prompt for Variables [ Produktversion ]"
+        dialogcaption = Produktversion
+        dialogwidth = 400
+        expanduserenteredvalues = true
+        expandvar = true
+        failonerror = false
+        id = {B1A723F6-083F-48F8-B3A7-B2492C9C8966}
+        prompttext = "Bitte folgende Werte für die Produktversion" +
+                     "des Releases angeben" +
+                     ""
+        promptwordwrap = false
+        sortorder = "VERSION_Major" +
+                    "VERSION_Minor" +
+                    "VERSION_Release" +
+                    ""
+        timeout = 0
+        prompt.item
+        begin
+          caption = VERSION_Major
+          defaultvalue = %VERSION_Major%
+          inuse = true
+          name = VERSION_Major
+          paramtype = ptInteger
+          selectall = false
+        end
+        prompt.item
+        begin
+          caption = VERSION_Minor
+          defaultvalue = %VERSION_Minor%
+          inuse = true
+          name = VERSION_Minor
+          paramtype = ptInteger
+          selectall = false
+        end
+        prompt.item
+        begin
+          caption = VERSION_Release
+          defaultvalue = %VERSION_Release%
+          inuse = true
+          name = VERSION_Release
+          paramtype = ptText
+          selectall = false
+        end
+      end
+      action.variables.savetoini
+      begin
+        erasesection = false
+        id = {96BA7471-0B42-42FF-A6F1-F44FCF02E576}
+        inifile = %FBPROJECTDIR%\\FinalBuilder.ini
+        saveall = false
+        sectionname = FBVariables
+        variables = "VERSION_Major" +
+                    "VERSION_Minor" +
+                    "VERSION_Release" +
+                    ""
+      end
+      action.datetime.get
+      begin
+        dateformat = yyyy-MM-dd_hh-nn
+        datesource = UseCurrent
+        fbvariable = BUILD_DateTime
+        forceseparators = false
+        id = {77962544-D4FC-4217-B9D6-A9A1E95CDB61}
+        manipulationtype = Add
+        manipulationunit = Seconds
+        thedate = 46045.3866497454
+      end
+      action.variable.set
+      begin
+        actionlogtitle = "Set Variable WorkingDirectory to [ %CFG_Build_Root%\\work\\%CFG_Product_Name% ]"
+        applytoexisting = false
+        doexpandexpression = true
+        forcetype = ftString
+        id = {C6C380DE-1BAD-4A3A-A506-322C30EDF8EF}
+        modifier = smNone
+        newvalue = %CFG_Build_Root%\\work
+        variablename = PATH_Work_Root
+      end
+      action.variable.set
+      begin
+        applytoexisting = false
+        doexpandexpression = true
+        forcetype = ftString
+        id = {A11882DA-C16A-4C04-94B7-1DBC6A2CFC7B}
+        modifier = smNone
+        newvalue = %PATH_Work_Root%\\%CFG_Product_Name%
+        variablename = PATH_Work_Project
+      end
+      action.variable.set
+      begin
+        applytoexisting = false
+        description = "Set Variable OutputDirectory to [ %CFG_Build_Root%\\output\\%CFG_Product_Name%\\%VERSION_Major%.%VERSION_Minor%.%VERSION_Release%_%BUILD_DateTime% ]"
+        doexpandexpression = true
+        forcetype = ftString
+        id = {85695AA8-9622-46CE-BFE1-D69E51F127D2}
+        modifier = smNone
+        newvalue = %CFG_Build_Root%\\output
+        variablename = PATH_Output_Root
+      end
+      action.variable.set
+      begin
+        applytoexisting = false
+        doexpandexpression = true
+        forcetype = ftString
+        id = {DAE226D5-7321-436A-9811-DFAB2506B175}
+        modifier = smNone
+        newvalue = %PATH_Output_Root%\\%CFG_Product_Name%\\%VERSION_Major%.%VERSION_Minor%.%VERSION_Release%_%BUILD_DateTime%
+        variablename = PATH_Output_Version
+      end
+      action.variable.set
+      begin
+        applytoexisting = false
+        description = "Set Variable ApplicationFilename to RemoveFileExt[ %CFG_Delphi_Project% ]"
+        doexpandexpression = true
+        forcetype = ftString
+        id = {1B145E29-C30A-4CEB-8A03-F13D301877EA}
+        modifier = smRemoveFileExt
+        newvalue = %CFG_Delphi_Project%
+        variablename = CFG_Application_Filename
+      end
+      action.variable.set
+      begin
+        applytoexisting = false
+        description = "Set Variable ApplicationFilename to [ %PATH_Output_Root%\\%CFG_Application_Filename%.exe ]"
+        doexpandexpression = true
+        forcetype = ftString
+        id = {0335B5D1-09D6-4110-92D1-400B636752F5}
+        modifier = smNone
+        newvalue = %PATH_Output_Version%\\%CFG_Application_Filename%.exe
+        variablename = CFG_Application_Filename
+      end
+      action.directory.create
+      begin
+        description = "Create Working Directory"
+        fileordirectory = %PATH_Work_Project%
+        force = true
+        id = {3492E3C5-3786-4626-A3AD-084CF1B1E3C1}
+      end
+      action.directory.create
+      begin
+        description = "Create OutputDirectory"
+        fileordirectory = %PATH_Output_Root%
+        force = true
+        id = {F040F7A3-C13C-4B01-B718-50D9215F52D5}
+      end
+      action.directory.delete
+      begin
+        deletehidden = true
+        deletereadonly = true
+        deletetree = true
+        description = "Clear Working Directory"
+        enabledelay = false
+        failifnodirectory = false
+        fileordirectory = %PATH_Work_Project%\\repo
+        force = false
+        id = {C8DC4298-A20B-4BD0-82A3-5CCC66358ADF}
+        logdeletedfiles = false
+      end
+      action.directory.delete
+      begin
+        deletehidden = true
+        deletereadonly = true
+        deletetree = true
+        description = "Remove old builds"
+        enabledelay = false
+        failifnodirectory = false
+        fileordirectory = %CFG_Build_Root%\\output\\%CFG_Product_Name%\\
+        force = false
+        id = {A4EF0926-D9FA-4165-8FA0-B94DBEFB96C1}
+        logdeletedfiles = false
+      end
+    end
+  end
+  target
+  begin
+    name = "Git Actions"
+    targetid = {794D7E54-7F68-4E51-B542-E96C5DE11865}
+    rootaction
+    begin
+      action.git.clone
+      begin
+        actiontypeid = {630ED1C6-6E7E-4693-8226-F5BDF0D3FE46}
+        customactionname = "Git Clone Repository"
+        enabletimeout = false
+        id = {7836B063-5FCB-47D1-8F6B-C05B9FEA211E}
+        impersonateusenetcredonly = false
+        impersonateuser = false
+        terminateontimeout = true
+        timeoutlength = 2
+        as.localrepos = %PATH_Work_Project%
+        as.remoterepos = %CFG_Repo_Url%
+        as.isnohardlinks = False
+        as.isshared = False
+        as.localreposdir = repo
+        as.isquiet = False
+        as.isverbose = False
+        as.isnocheckout = False
+        as.isbare = False
+        as.ismirror = False
+        as.isifable = False
+        as.isdepth = True
+        as.depth = 1
+        as.isremotelocal = False
+        as.isdissociate = False
+        as.issinglebranch = True
+        as.isnotags = False
+        as.issparse = False
+        as.isnosinglebranch = False
+        as.isshallowsubmodules = False
+        as.isnoshallowsubmodules = False
+        as.isremotesubmodules = False
+        as.isnoremotesubmodules = False
+        as.jobs = 0
+        as.isrecursesubmodules = False
+        as.username = %CFG_Git_AccessToken%
+        as.usecredentialhelper = False
+      end
+      action.git.generic
+      begin
+        actiontypeid = {9FE3B354-A721-491E-86BF-19CF66F92F24}
+        customactionname = "Git Generic"
+        description = "Git Delete Remote Tag"
+        enabletimeout = false
+        id = {66690CF4-1695-442F-A24E-122B52444E99}
+        ignorefailure = true
+        impersonateusenetcredonly = false
+        impersonateuser = false
+        terminateontimeout = true
+        timeoutlength = 2
+        as.localrepos = %PATH_Work_Project%\\repo
+        as.command = push
+        as.commandarguments = "--delete origin v%VERSION_Major%.%VERSION_Minor%.%VERSION_Release%"
+        as.usecredentialhelper = False
+      end
+      action.git.generic
+      begin
+        actiontypeid = {9FE3B354-A721-491E-86BF-19CF66F92F24}
+        customactionname = "Git Generic"
+        description = "Git Tag"
+        enabletimeout = false
+        id = {E1588F60-81A5-472C-90C1-4538ADAD75D9}
+        impersonateusenetcredonly = false
+        impersonateuser = false
+        terminateontimeout = true
+        timeoutlength = 2
+        as.localrepos = %PATH_Work_Project%\\repo
+        as.command = tag
+        as.commandarguments = "-fa v%VERSION_Major%.%VERSION_Minor%.%VERSION_Release% -m \"Updated release v%VERSION_Major%.%VERSION_Minor%.%VERSION_Release%\""
+        as.usecredentialhelper = False
+      end
+      action.git.checkout
+      begin
+        actiontypeid = {BDB55D94-7093-4EFE-A279-A8746A7E4A61}
+        customactionname = "Git Checkout"
+        enabletimeout = false
+        id = {EECC8EAF-5BBA-4796-A7BA-8C30E0B02BBD}
+        impersonateusenetcredonly = false
+        impersonateuser = false
+        terminateontimeout = true
+        timeoutlength = 2
+        as.localrepos = %PATH_Work_Project%\\repo
+        as.isquiet = 0
+        as.isforce = False
+        as.ismerge = False
+        as.iscreatebranchsimple = False
+        as.iscreatebranchforce = False
+        as.iscreatebranchorphan = False
+        as.isdetach = False
+        as.isreflog = False
+        as.isnoguess = False
+        as.istrack = False
+        as.isnotrack = False
+        as.commit = v%VERSION_Major%.%VERSION_Minor%.%VERSION_Release%
+        as.ispathspecfilenul = False
+        as.isours = False
+        as.istheirs = False
+        as.isguess = False
+        as.isoverwriteignore = False
+        as.isnooverwriteignore = False
+        as.isoverlay = False
+        as.isnooverlay = False
+        as.isignoreotherworktrees = False
+        as.isignoreskipworktreebits = False
+      end
+      action.git.generic
+      begin
+        actiontypeid = {9FE3B354-A721-491E-86BF-19CF66F92F24}
+        customactionname = "Git Generic"
+        description = "Git get Tag"
+        enabletimeout = false
+        id = {750D95F0-7F7C-4AAA-9147-B005209DDFAE}
+        impersonateusenetcredonly = false
+        impersonateuser = false
+        logtovariable = GIT_Tag
+        terminateontimeout = true
+        timeoutlength = 2
+        as.localrepos = %PATH_Work_Project%\\repo
+        as.command = describe
+        as.commandarguments = "--tags --abbrev\=0"
+        as.usecredentialhelper = False
+      end
+      action.git.generic
+      begin
+        actiontypeid = {9FE3B354-A721-491E-86BF-19CF66F92F24}
+        customactionname = "Git Generic"
+        description = "Git get Hash"
+        enabletimeout = false
+        id = {367CB35B-62F5-4577-BF83-08F1344A6FD4}
+        impersonateusenetcredonly = false
+        impersonateuser = false
+        logtovariable = GIT_Commit_Hash
+        terminateontimeout = true
+        timeoutlength = 2
+        as.localrepos = %PATH_Work_Project%\\repo
+        as.command = rev-parse
+        as.commandarguments = "--short HEAD"
+        as.usecredentialhelper = False
+      end
+      action.git.push
+      begin
+        actiontypeid = {455976BE-54A2-4229-BD15-7A9C269FF49A}
+        customactionname = "Git Push"
+        enabletimeout = false
+        id = {A8071774-5FF3-4D88-8BDB-9BBE38B355D1}
+        impersonateusenetcredonly = false
+        impersonateuser = false
+        terminateontimeout = true
+        timeoutlength = 2
+        as.localrepos = %PATH_Work_Project%\\repo
+        as.remoterepos = %CFG_Repo_Url%
+        as.isall = False
+        as.ismirror = False
+        as.isdryrun = False
+        as.isporcelain = False
+        as.istags = True
+        as.isforce = False
+        as.isverbose = False
+        as.issetupstream = False
+        as.isdelete = False
+        as.isfollowtags = False
+        as.isquiet = False
+        as.isforcewithlease = False
+        as.isatomic = False
+        as.isnoatomic = False
+        as.isverify = False
+        as.isnoverify = False
+        as.isthin = False
+        as.isnothin = False
+        as.isprune = False
+        as.username = %CFG_Git_AccessToken%
+        as.usecredentialhelper = False
+      end
+      action.variable.set
+      begin
+        applytoexisting = true
+        doexpandexpression = true
+        forcetype = ftString
+        id = {EB300EA9-3DC1-46E3-BECB-293B0CB9F9B7}
+        modifier = smTrim
+        variablename = GIT_Commit_Hash
+      end
+      action.variable.set
+      begin
+        applytoexisting = true
+        doexpandexpression = true
+        forcetype = ftString
+        id = {9F0A90DD-4EB5-450C-91EA-63D6F5930D93}
+        modifier = smTrim
+        variablename = GIT_Tag
+      end
+    end
+  end
+  target
+  begin
+    name = "Generate BuildInfo"
+    targetid = {F42B0195-67A5-4AA3-8CCE-9413A84371F6}
+    rootaction
+    begin
+      action.propertyset.define
+      begin
+        excludedproperties = "CompileDate" +
+                             "FileDescription" +
+                             "FileFlagDebug" +
+                             "FileFlagPreRelease" +
+                             "FileFlagPrivate" +
+                             "FileFlagSpecial" +
+                             "FileSubType" +
+                             "FileTypeDLL" +
+                             "FileTypeDRV" +
+                             "FileTypeVXD" +
+                             "IncludeCompileDate" +
+                             "InternalName" +
+                             "LegalCopyright" +
+                             "LegalTrademarks" +
+                             "OriginalFilename" +
+                             "SpecialBuildDetails" +
+                             ""
+        id = {36DBD655-F787-40B9-BE46-C3D0261ED128}
+        propertysetname = VersionInfo
+        propertyset.win32.info
+        begin
+          autoupdatefileversionstring = false
+          autoupdateproductversionstring = false
+          companyname = "Profil Institut fÃ¼r Stoffwechselforschung GmbH"
+          majorversion = 1
+          name = VersionInfo
+          productname = DelphiTestProject
+          productversion = 1.0.0.0
+          productversionstring = "1.0.1 git.951ac95"
+        end
+      end
+      action.propertyset.setvalues
+      begin
+        id = {48F1E2FE-85A2-4A52-9240-CD1F3D1B6EF7}
+        propertysetname = VersionInfo
+        setvaluesto = "false" +
+                      "false" +
+                      "" +
+                      "%CFG_Company_Name%" +
+                      "" +
+                      "" +
+                      "%VERSION_Major%" +
+                      "%VERSION_Minor%" +
+                      "%CFG_Product_Name%" +
+                      "%VERSION_Major%.%VERSION_Minor%.%VERSION_Release%" +
+                      "%VERSION_Major%.%VERSION_Minor%.%VERSION_Release% git.%GIT_Commit_Hash%" +
+                      "%GIT_Commit_Hash%" +
+                      ""
+        valuestoset = "AutoUpdateFileVersionString\=-1" +
+                      "AutoUpdateProductVersionString\=-1" +
+                      "BuildVersion\=0" +
+                      "CompanyName\=-1" +
+                      "FileVersionString\=0" +
+                      "LinkProductVersion\=0" +
+                      "MajorVersion\=-1" +
+                      "MinorVersion\=-1" +
+                      "ProductName\=-1" +
+                      "ProductVersion\=-1" +
+                      "ProductVersionString\=-1" +
+                      "ReleaseVersion\=-1" +
+                      ""
+      end
+    end
+  end
+  target
+  begin
+    name = "Build Delphi"
+    targetid = {3EAD6FE0-1625-44C5-A97B-7EB98CA1CEBA}
+    rootaction
+    begin
+      action.doscmd.execute
+      begin
+        actionlogtitle = "Run DOS Command / Batch File [ CheckConnectedDFM %PATH_Work_Root%\\repo\\src\\ ]"
+        captureoutput = true
+        command = "CheckConnectedDFM %PATH_Work_Project%\\repo\\src\\"
+        enablelivecapture = true
+        enablereturncodecheck = true
+        enabletimeout = false
+        expandimpersonationtoken = false
+        hidewindow = true
+        id = {375F00EE-9013-4E7C-8D49-08F6AA81F766}
+        impersonateusenetcredonly = false
+        impersonateuser = false
+        logoutput = true
+        logprocessparameters = true
+        params = "CheckConnectedDFM %PATH_Work_Project%\\repo\\src\\"
+        redirectstderr = true
+        returncodecomparator = rcEqualTo
+        returncodetocheck = 0
+        startindir = C:\\Delphi\\Tools
+        terminateontimeout = false
+        timeoutlength = 0
+        useerrordialogmonitor = false
+        waitforcompletion = true
+      end
+      action.delphi.build
+      begin
+        actionlogtitle = "Build Delphi Win32 [ %PATH_Work_Root%\\repo\\src\\%CFG_Delphi_Project% ]"
+        allowimplicitimport = true
+        alwaysuseconditionalsfromdof = false
+        autoincbuild = false
+        autoupdatefileversion = false
+        autoupdateproductversion = false
+        buildall = true
+        buildversion = 0
+        codepage = 1252
+        compileprojectresources = false
+        compileridl = true
+        configname = Release
+        debugversionnumbers = false
+        delphiversion = Delphi12
+        enabletimeout = false
+        eurekalogverboselogging = false
+        frameworktype = VCL
+        hintsaserror = false
+        iconfile = %PATH_Work_Project%\\repo\\resources\\%CFG_Delphi_Icon%
+        id = {ECA06CDA-E82E-4018-BF9C-E8B955198024}
+        includecompiledate = false
+        includemanifest = true
+        includeverinfo = true
+        isdebug = false
+        isdll = false
+        isprerelease = false
+        isprivate = false
+        isspecial = false
+        keepcfg = false
+        linkproductversiontofileversion = true
+        locale = 3081
+        majorversion = 1
+        manifestfile = %PATH_Work_Project%\\repo\\src\\manifest.xml
+        minorversion = 0
+        noconfig = false
+        platform = Win32
+        platformsdktype = ProjectSDK
+        projectfile = %PATH_Work_Project%\\repo\\src\\%CFG_Delphi_Project%
+        regenerateresource = true
+        releaseversion = 0
+        resourcecompilertype = rcBorland
+        ridloutputsamefolder = true
+        startingdir = %PATH_Work_Project%\\repo\\src\\
+        timeoutlength = 1
+        updatedoffile = true
+        updatepackagesource = false
+        updateversioninfokeys = false
+        useeurekalogcompiler = false
+        usefastdcccompiler = false
+        useprojectsettings = [usPackages,usCompiler]
+        usepropertyset = true
+        useversionfromdof = false
+        verboseoutput = false
+        versioninfokeys = "CompanyName\=Profil Institut fÃ¼r Stoffwechselforschung GmbH" +
+                          "ProductName\=DelphiTestProject" +
+                          "ProductVersion\=1.0.1 git.951ac95" +
+                          ""
+        versioninfopropertysetname = VersionInfo
+        warningsaserror = false
+        workaroundd5bug = false
+        delphi.compileroptions
+        begin
+          alwaysuseconditionalsfromdof = false
+          alwaysusedelphilibrarypath = true
+          alwaysusedofsearchpath = true
+          assertions = true
+          assignableconst = false
+          booleval = false
+          consoleapp = false
+          debuginfo = false
+          definitionsonly = false
+          emitruntimetypeinformation = false
+          exportallsymbols = false
+          extendedsyntax = true
+          externaltd32 = true
+          frameworktype = VCL
+          generatedocumentation = false
+          generatehpp = false
+          hugestrings = true
+          imagebase = 4194304
+          includenamespaces = false
+          includeremotesymbols = false
+          includetd32 = false
+          inlining = inOn
+          iochecking = true
+          librarypath = "$(BDSLIB)\\$(Platform)\\release;$(BDSUSERDIR)\\Imports;$(BDSUSERDIR)\\Imports\\$(Platform);$(BDS)\\Imports;$(BDSCOMMONDIR)\\Dcp;$(BDS)\\include;$(BDSCatalogRepository)\\FastReport-2023.3\\RS29\\VCL\\Win32;$(BDSCatalogRepository)\\FastReport-2023.3\\RS29\\FMX\\Win32;C:\\Delphi\\madCollection\\madBasic\\BDS23\\win32;C:\\Delphi\\madCollection\\madDisAsm\\BDS23\\win32;C:\\Delphi\\madCollection\\madExcept\\BDS23\\win32;C:\\Delphi\\madCollection\\madExcept\\..\\Plugins\\win32;C:\\Delphi\\madCollection\\madKernel\\BDS23\\win32;C:\\Delphi\\madCollection\\madSecurity\\BDS23\\win32;C:\\Delphi\\madCollection\\madShell\\BDS23\\win32;$(FLEXCELVCLNT)\\Packages\\d12\\Win32\\Release;C:\\Users\\la-achterholt\\Documents\\Embarcadero\\Studio\\23.0\\CatalogRepository\\JEDICodeLibraryJCL\\lib\\d29\\win32;C:\\Users\\la-achterholt\\Documents\\Embarcadero\\Studio\\23.0\\CatalogRepository\\JEDICodeLibraryJCL\\source\\include;C:\\Users\\la-achterholt\\Documents\\Embarcadero\\Studio\\23.0\\CatalogRepository\\JEDIVisualComponentLibraryJVCL\\lib\\D29\\win32;C:\\Users\\la-achterholt\\Documents\\Embarcadero\\Studio\\23.0\\CatalogRepository\\JEDIVisualComponentLibraryJVCL\\common;C:\\Users\\la-achterholt\\Documents\\Embarcadero\\Studio\\23.0\\CatalogRepository\\JEDIVisualComponentLibraryJVCL\\Resources;C:\\dev\\ProfilLib;C:\\dev\\delphi-xe-json;C:\\dev\\delphi-xe-json\\lib;\\\\server3\\Verwaltung\\Software Development\\Delphi-Komponenten\\DelphiEncryptionCompendium\\Source;C:\\dev\\crc_hash_2018-01-01;C:\\Delphi\\CS5\\Lib\\RX12\\Win32;C:\\dev\\eSourceLib;$(FRL)\\LibRS29\\VCL\\Win32;$(FRL)\\Sources\\FastReport\\VCL\\Sources;$(FRL)\\Sources\\FastCore\\VCL\\Sources;$(FRL)\\Sources\\FastGraphics\\VCL\\Sources;$(FRL)\\Sources\\FastLocalization\\VCL\\Sources;$(FRL)\\Sources\\FastData\\VCL\\Sources;$(FRL)\\Sources\\FastScript\\VCL\\Sources;$(FRL)\\Sources\\FastControls\\VCL\\Sources;$(DXVCL)\\Library\\RS29;C:\\Delphi\\Devart\\IBDAC for RAD Studio 12\\Lib\\Win32;C:\\Delphi\\Devart\\IBDAC for RAD Studio 12\\Bin\\Win32;C:\\dev\\Zint"
+          linkeroutput = 0
+          localsymbols = false
+          mapfile = 3
+          maxstacksize = 1048576
+          minstacksize = 16384
+          namespaceprefixes = System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;
+          openstrings = true
+          optimisation = true
+          outputdir = %PATH_Output_Version%
+          overflowchecking = false
+          packages = jvnet;dxpscxextcommonrs29;dxricheditcontrolcorers29;vclie;bindengine;indyipcommon;fmxfrcorelibrary29;fmx_flexcel_components;cxverticalgridrs29;dbxcds;vcledge;frlanguageslovak29;flexcel_pdf;dxpsdbteechartrs29;cxschedulerwebservicestoragers29;dxricheditcontrolrs29;dxpsprvwadvrs29;vclribbon;jvappfrm;dxpsdxgaugecontrollnkrs29;jclvcl;frlanguagearabic29;dxribboncustomizationformrs29;jcl;dbexpress;jvmanagedthreads;frlanguagecatalon29;dxemfrs29;frlanguageczech29;inet;vcltouch;fmx_flexcel_core;dxpsdxfclnkrs29;dxspreadsheetcoreconditionalformattingdialogsrs29;vcl_flexcel_core;customiptransport;jvsystem;frlanguageitalian29;frxpdf29;madexcept_;jvcrypt;dxpscxtllnkrs29;frxe29;fsdb29;vclfiredac;dxspreadsheetrs29;frlanguagedanish29;dxpscxvgridlnkrs29;frxtee29;rtl;frlanguagelithuanian29;dxservermoders29;dbxsqlitedriver;dxbardbnavrs29;frlanguagerussian29;jvruntimedesign;jvxpctrls;inetdbxpress;firedac;jvdocking;xmlrtl;dsnap;jvcmp;frlanguageserbian29;dxpsdxlclnkrs29;frcontrolslibrary29;dxpslnksrs29;dxpsdxoclnkrs29;cxschedulergridrs29;dxpsdxdbtvlnkrs29;frlocalizationlibrary29;dxgaugecontrolrs29;bindcompvclwinx;dxorgchartadvancedcustomizeformrs29;bindcompfmx;madbasic_;frlanguagegerman29;jvbands;dxflowchartlayoutsrs29;dxdborrs29;frlanguageindonesian29;tee;dxpscxgridlnkrs29;vclactnband;fmxfrxdb29;dxricheditcorers29;dbxmysqldriver;dxflowchartadvancedcustomizeformrs29;fsado29;vclsmp;dxpsteechartrs29;fmxase;jvpluginsystem;dxflowchartrs29;flexcel_xlsadapter;cxgridrs29;dxspellcheckerrs29;frlanguageslovene29;jcldevelopertools;dxmapcontrolrs29;vcldsnap;dbxinterbasedriver;jvwizards;frlanguagebrazil129;vcldb;cxschedulertreebrowserrs29;jvcore;dacfmx290;dxtabbedmdirs29;inetstn;dxhttpindyrequestrs29;fmxfrx29;frlanguagejapanese29;cxpivotgridolaprs29;ibdac290;jvdotnetctrls;vcl;jvhmi;dxcorers29;fsfd29;dxskinscorers29;frlanguagedutch29;firedacpgdriver;jvprintpreview;tethering;jvstdctrls;frlanguagebulgarian29;bindcompvcl;cloudservice;fmxfrlocalizationlibrary29;frgraphicslibrary29;cxschedulerrs29;soapserver;firedacibdriver;dxpscxcommonrs29;dxribbonrs29;vclwinx;fs29;fmx;dxspreadsheetreportdesignerrs29;dbxcommondriver;vclrestcomponents;firedaccommonodbc;dxcomnrs29;fstee29;dxflowchartdesignerrs29;appanalytics;indyprotocols;vclx;skia.package.rtl;dxbarextdbitemsrs29;fmxteeui;cxfiredacadaptersrs29;frlanguagehungarian29;skia_flexcel_core;dacvcl290;firedacsqlitedriver;dbxclientdriver;soapmidas;teeui;frcorelibrary29;frlanguagebrazil29;dxdockingrs29;jvdb;dxorgcrs29;fmxdae;jvcustom;dxpsdxspreadsheetlnkrs29;dxpsricheditcontrollnkrs29;jvcontrols;cxadoadaptersrs29;frlanguageswiss29;jvjans;jvmm;indysystem;dxpsprvwribbonrs29;frlanguageswedish29;dxpsdxdboclnkrs29;jvglobus;dxgdiplusrs29;jclcontainers;frlanguageukrainian29;jvpagecomps;maddisasm_;dxpscorers29;flexcel_render;firedaccommon;dxpsdxmapcontrollnkrs29;cxgridemfrs29;dxganttcontrolrs29;dxpscxpivotgridlnkrs29;dxadoservermoders29;dxwizardcontrolrs29;bindcompdbx;firedacmysqldriver;dxcloudservicelibraryrs29;vcl_flexcel_components;frlanguagefrench29;dxspreadsheetcorers29;dxnavbarrs29;vclimg;jvdlgs;dxfiredacemfrs29;frlanguagefarsi29;fmxobj;bindcompvclsmp;frx29;frlanguagechinese29;ibdacvcl290;frlanguagehebrew29;dxmdsrs29;dxpscxschedulerlnkrs29;flexcel_report;profil.componentsd12;dxadoemfrs29;dxchartcontrolrs29;frxdb29;firedaccommondriver;indyipclient;frxhtml29;dxpdfviewerrs29;frlanguagetaiwan29;dxbarextitemsrs29;frlanguageromanian29;crcontrols290;inetdb;frlanguagebrazil229;cxpivotgridchartrs29;fmxfiredac;cxtreelistdxbarpopupmenurs29;frlanguagecroatian29;cxschedulerribbonstyleeventeditorrs29;jvpascalinterpreter;dxtrmdrs29;jvtimeframework;dbrtl;dxpscxpcprodrs29;skia.package.fmx;teedb;firedacmsaccdriver;dxricheditdocumentmodelrs29;frlanguageturkish29;frlanguagegreek29;cxlibraryrs29;skia.package.vcl;flexcel_core;dxpsdxpdfviewerlnkrs29;bindcomp;cxexportrs29;frlanguagelatvian29;indycore;restbackendcomponents;frlanguagespanish29;dxtilecontrolrs29;dxfiredacservermoders29;firedacadsdriver;frxfd29;restcomponents;indyipserver;dsnapxml;adortl;dxdbtrrs29;dsnapcon;cxpivotgridrs29;frxado29;dac290;ibdacfmx290;dxbarrs29;frlanguageportuguese29;frlanguagepolish29;frxdbx29;office;dxspreadsheetconditionalformattingdialogsrs29;cxtreelistrs29;fmxtee;soaprtl;dxdbxservermoders29;dxpsdxchartcontrollnkrs29
+          rangechecking = false
+          recordfieldalign = fa8
+          referenceinfo = false
+          safedivide = false
+          showhints = true
+          showwarnings = true
+          stackframes = false
+          stringchecks = true
+          typedpointers = false
+          unitaliases = WinTypes\=Windows;WinProcs\=Windows;DbiTypes\=BDE;DbiProcs\=BDE;DbiErrs\=BDE
+          unitoutputdir = %PATH_Output_Version%\\dcu
+          usedebugdcu = false
+          usepackages = false
+          varstringchecks = true
+        end
+      end
+    end
+  end
+  target
+  begin
+    name = PostBuild
+    targetid = {FE3D81EB-E398-4D60-9BFC-36AB79A4BED7}
+    rootaction
+    begin
+      action.doscmd.execute
+      begin
+        captureoutput = true
+        command = "\"C:\\Delphi\\madCollection\\madExcept\\Tools\\madExceptPatch.exe\" %CFG_Application_Filename%"
+        enablelivecapture = true
+        enablereturncodecheck = true
+        enabletimeout = false
+        expandimpersonationtoken = false
+        hidewindow = true
+        id = {A0D56FC0-55E6-45E3-894B-729F86BBDD72}
+        impersonateusenetcredonly = false
+        impersonateuser = false
+        logoutput = true
+        logprocessparameters = true
+        params = "\"C:\\Delphi\\madCollection\\madExcept\\Tools\\madExceptPatch.exe\" %CFG_Application_Filename%"
+        redirectstderr = true
+        returncodecomparator = rcEqualTo
+        returncodetocheck = 0
+        startindir = %PATH_Output_Version%
+        terminateontimeout = false
+        timeoutlength = 1
+        useerrordialogmonitor = false
+        waitforcompletion = true
+      end
+      action.signtool.sign
+      begin
+        actiontypeid = {B89C6983-0697-40BB-BD5A-E74525AFFA5B}
+        customactionname = "Signtool Sign Files"
+        enabletimeout = false
+        id = {BC1F2A45-3E6B-4C24-B4EE-504033A8635C}
+        impersonateusenetcredonly = false
+        impersonateuser = false
+        terminateontimeout = true
+        timeoutlength = 2
+        as.isverbose = False
+        as.isdescription = False
+        as.isurldescription = False
+        as.istimestampservice = False
+        as.isautoselect = False
+        as.iscomputerstore = False
+        as.isenhancedkeyusage = False
+        as.certificate = %CFG_Certificate_Filename%
+        as.token = xxKvVQwJBBnJfoLa6tboaMSIgEOSm3KVHQA\=
+        as.selecteditems = %CFG_Application_Filename%
+        as.usefilelist = True
+        as.usefileset = False
+        as.generatepagehash = False
+        as.hashalgorithm = "SHA256" +
+                           ""
+        as.isrfc3161timestampservice = False
+        as.appendsignature = False
+        as.addsignature = False
+      end
+    end
+  end
+  target
+  begin
+    name = Package
+    targetid = {37E16165-92A1-45DC-9A89-9198D7ADAFA9}
+    rootaction
+    begin
+      action.interactive.promptforvariablesenh
+      begin
+        dialogcaption = "Push To Environments"
+        dialogwidth = 400
+        expanduserenteredvalues = true
+        expandvar = true
+        failonerror = false
+        id = {EA0A145B-E2B2-4AB3-8D7F-78FD6985BC6C}
+        ignorefailure = true
+        prompttext = "Choose the Environments to Push the file to" +
+                     ""
+        promptwordwrap = false
+        sortorder = "TMP_CopyToDev" +
+                    "TMP_CopyToTest" +
+                    "TMP_CopyToStaging" +
+                    ""
+        timeout = 0
+        prompt.item
+        begin
+          caption = TMP_CopyToDev
+          defaultvalue = False
+          inuse = true
+          name = TMP_CopyToDev
+          paramtype = ptBoolean
+          selectall = false
+        end
+        prompt.item
+        begin
+          caption = TMP_CopyToTest
+          defaultvalue = False
+          inuse = true
+          name = TMP_CopyToTest
+          paramtype = ptBoolean
+          selectall = false
+        end
+        prompt.item
+        begin
+          caption = TMP_CopyToStaging
+          defaultvalue = False
+          inuse = true
+          name = TMP_CopyToStaging
+          paramtype = ptBoolean
+          selectall = false
+        end
+      end
+      action.ifthen
+      begin
+        expandactionlogtitle = false
+        id = {7D577715-B9E6-4963-AB70-51197524133F}
+        lhsstoragestring = "%TMP_CopyToDev%" +
+                           ""
+        operatorsstoragestring = "\=" +
+                                 ""
+        resultinlogtitle = true
+        rhsstoragestring = "true" +
+                           ""
+        shortcircuitevaluation = true
+        termjoiner = jwOr
+        action.variable.set
+        begin
+          applytoexisting = false
+          description = "Set Variable RemoteApplicationFilename to [ \\\\server3\\Allgemeines\\Programme\\Development\\%CFG_Product_Name%_%GIT_Commit_Hash%.exe ]"
+          doexpandexpression = true
+          forcetype = ftString
+          id = {A44FE6B5-8424-415B-8AED-78A36EF21877}
+          modifier = smNone
+          newvalue = \\\\server3\\Allgemeines\\Programme\\Development\\%CFG_Product_Name%_%GIT_Commit_Hash%.exe
+          variablename = TMP_Remote_Filename
+        end
+        action.files.delete
+        begin
+          deletehidden = true
+          deletereadonly = true
+          description = "Delete File(s) [Old executable  ]"
+          failifnofile = false
+          filespec = \\\\server3\\Allgemeines\\Programme\\Dev\\%CFG_Product_Name%_*.exe
+          id = {A8E24912-120E-40B3-AF79-0AB6BFD0E195}
+        end
+        action.files.copy
+        begin
+          clearattributes = false
+          description = "Copy File to Dev"
+          failifexists = false
+          failifzerofiles = false
+          filespec = %CFG_Application_Filename%
+          force = false
+          id = {DEE15E44-282D-4923-81EE-DD114BE07918}
+          logfilesaffected = true
+          overwrite = true
+          overwritereadonly = true
+          recurse = false
+          target = %TMP_Remote_Filename%
+          targetisdir = false
+        end
+        action.file.setattributes
+        begin
+          archive = asNone
+          description = "Hide Exe"
+          failiffilenotfound = true
+          filespec = %TMP_Remote_Filename%
+          hidden = asSet
+          id = {7DCE8A0A-31A6-4128-A06B-F874247CA2E7}
+          logallfiles = false
+          readonly = asNone
+          recurse = false
+          systemfile = asNone
+          usefileset = false
+        end
+        action.shortcut.create
+        begin
+          actiontypeid = {CFDDE137-FAE8-4CCF-AD07-1A9F4CE0B068}
+          customactionname = "Create Shortcut"
+          description = "Create Shortcut"
+          enabletimeout = false
+          id = {FD1B2866-ACE6-4212-AE87-2EFF437B32AA}
+          impersonateusenetcredonly = false
+          impersonateuser = false
+          terminateontimeout = true
+          timeoutlength = 2
+          as.shortcutpath = "\\\\server3\\Allgemeines\\Programme\\Development\\%CFG_Product_Name% DEV.lnk"
+          as.targetpath = %TMP_Remote_Filename%
+          as.iconpath = %TMP_Remote_Filename%
+          as.commandargs = "/test /dev"
+          as.startmax = False
+          as.startmin = False
+          as.failiftargetnonexistent = True
+          as.failifshortcutfileexists = False
+        end
+      end
+      action.ifthen
+      begin
+        expandactionlogtitle = false
+        id = {DB6DC967-54D7-4F1D-ACB1-AB7E5EA6E7AB}
+        lhsstoragestring = "%TMP_CopyToTest%" +
+                           ""
+        operatorsstoragestring = "\=" +
+                                 ""
+        resultinlogtitle = true
+        rhsstoragestring = "true" +
+                           ""
+        shortcircuitevaluation = true
+        termjoiner = jwOr
+        action.variable.set
+        begin
+          applytoexisting = false
+          description = "Set Variable RemoteApplicationFilename to [ \\\\server3\\Allgemeines\\Programme\\Test\\%CFG_Product_Name%_%GIT_Commit_Hash%.exe ]"
+          doexpandexpression = true
+          forcetype = ftString
+          id = {E036C622-ACDF-4313-A55F-79554DF43FBE}
+          modifier = smNone
+          newvalue = \\\\server3\\Allgemeines\\Programme\\Test\\%CFG_Product_Name%_%GIT_Commit_Hash%.exe
+          variablename = TMP_Remote_Filename
+        end
+        action.files.delete
+        begin
+          deletehidden = true
+          deletereadonly = true
+          description = "Delete File(s) [Old executable  ]"
+          failifnofile = false
+          filespec = \\\\server3\\Allgemeines\\Programme\\Test\\%CFG_Product_Name%_*.exe
+          id = {271A4452-7303-49D8-8F60-9F02024088D4}
+        end
+        action.files.copy
+        begin
+          clearattributes = false
+          description = "Copy File To Test"
+          failifexists = false
+          failifzerofiles = false
+          filespec = %CFG_Application_Filename%
+          force = false
+          id = {6E983BE9-10B8-4F1A-BA2A-5C0D7D0E9631}
+          logfilesaffected = true
+          overwrite = true
+          overwritereadonly = true
+          recurse = false
+          target = %TMP_Remote_Filename%
+          targetisdir = false
+        end
+        action.file.setattributes
+        begin
+          archive = asNone
+          description = "Hide Exe"
+          failiffilenotfound = true
+          filespec = %TMP_Remote_Filename%
+          hidden = asSet
+          id = {B5FE2D50-2FFD-4AF8-8E97-8D6488206F5F}
+          logallfiles = false
+          readonly = asNone
+          recurse = false
+          systemfile = asNone
+          usefileset = false
+        end
+        action.shortcut.create
+        begin
+          actiontypeid = {CFDDE137-FAE8-4CCF-AD07-1A9F4CE0B068}
+          customactionname = "Create Shortcut"
+          description = "Create Shortcut"
+          enabletimeout = false
+          id = {D5E651D7-6DDC-493F-98EE-025EFDD97E17}
+          impersonateusenetcredonly = false
+          impersonateuser = false
+          terminateontimeout = true
+          timeoutlength = 2
+          as.shortcutpath = "\\\\server3\\Allgemeines\\Programme\\Test\\%CFG_Product_Name% TEST.lnk"
+          as.targetpath = %TMP_Remote_Filename%
+          as.iconpath = %TMP_Remote_Filename%
+          as.commandargs = /test
+          as.startmax = False
+          as.startmin = False
+          as.failiftargetnonexistent = True
+          as.failifshortcutfileexists = False
+        end
+      end
+      action.ifthen
+      begin
+        expandactionlogtitle = false
+        id = {E4347375-517E-432B-A5A6-1CBDE17D4CE3}
+        lhsstoragestring = "%TMP_CopyToStaging%" +
+                           ""
+        operatorsstoragestring = "\=" +
+                                 ""
+        resultinlogtitle = true
+        rhsstoragestring = "true" +
+                           ""
+        shortcircuitevaluation = true
+        termjoiner = jwOr
+        action.variable.set
+        begin
+          applytoexisting = false
+          description = "Set Variable RemoteApplicationFilename to [ \\\\server3\\Allgemeines\\Programme\\Staging\\%CFG_Product_Name%_%GIT_Commit_Hash%.exe ]"
+          doexpandexpression = true
+          forcetype = ftString
+          id = {86F78DC1-5E36-4D74-AB35-1049F426BAB7}
+          modifier = smNone
+          newvalue = \\\\server3\\Allgemeines\\Programme\\Staging\\%CFG_Product_Name%_%GIT_Commit_Hash%.exe
+          variablename = TMP_Remote_Filename
+        end
+        action.files.delete
+        begin
+          deletehidden = true
+          deletereadonly = true
+          description = "Delete File(s) [Old executable  ]"
+          failifnofile = false
+          filespec = \\\\server3\\Allgemeines\\Programme\\Staging\\%CFG_Product_Name%_*.exe
+          id = {032A5C41-1C9D-4CEE-B306-B27139E75263}
+        end
+        action.files.copy
+        begin
+          clearattributes = false
+          description = "Copy File To Staging"
+          failifexists = false
+          failifzerofiles = false
+          filespec = %CFG_Application_Filename%
+          force = false
+          id = {4593AEDC-31D8-4062-9CF0-13C43462E1BF}
+          logfilesaffected = true
+          overwrite = true
+          overwritereadonly = true
+          recurse = false
+          target = %TMP_Remote_Filename%
+          targetisdir = false
+        end
+        action.file.setattributes
+        begin
+          archive = asNone
+          description = "Hide Exe"
+          failiffilenotfound = true
+          filespec = %TMP_Remote_Filename%
+          hidden = asSet
+          id = {EB120325-D1F3-42ED-84E9-D64025B89F0C}
+          logallfiles = false
+          readonly = asNone
+          recurse = false
+          systemfile = asNone
+          usefileset = false
+        end
+        action.shortcut.create
+        begin
+          actiontypeid = {CFDDE137-FAE8-4CCF-AD07-1A9F4CE0B068}
+          customactionname = "Create Shortcut"
+          description = "Create Shortcut"
+          enabletimeout = false
+          id = {C69A5EA9-BB76-45D7-9555-6B27BF1C5F53}
+          impersonateusenetcredonly = false
+          impersonateuser = false
+          terminateontimeout = true
+          timeoutlength = 2
+          as.shortcutpath = "\\\\server3\\Allgemeines\\Programme\\Staging\\%CFG_Product_Name% Clinic STAGING.lnk"
+          as.targetpath = %TMP_Remote_Filename%
+          as.iconpath = %TMP_Remote_Filename%
+          as.commandargs = /staging
+          as.startmax = False
+          as.startmin = False
+          as.failiftargetnonexistent = True
+          as.failifshortcutfileexists = False
+        end
+      end
+    end
+  end
+  target
+  begin
+    name = CleanUp
+    targetid = {6A0AD0E5-225D-48A2-AFFB-4510087E8D52}
+    rootaction
+    begin
+      action.directory.delete
+      begin
+        actionlogtitle = "Delete Tree [ %PATH_Work_Root% ]"
+        deletehidden = true
+        deletereadonly = true
+        deletetree = true
+        enabledelay = false
+        failifnodirectory = false
+        fileordirectory = %PATH_Work_Project%
+        force = false
+        id = {7D0D778C-5404-4068-8B7C-14854A9543C0}
+        logdeletedfiles = false
+      end
+      action.directory.delete
+      begin
+        actionlogtitle = "Delete Tree [ %PATH_Output_Root%\\dcu ]"
+        deletehidden = false
+        deletereadonly = false
+        deletetree = true
+        enabledelay = false
+        failifnodirectory = false
+        fileordirectory = %PATH_Output_Version%\\dcu
+        force = false
+        id = {63E7581C-D839-4049-A536-CEC0A5AF4628}
+        logdeletedfiles = false
+      end
+      action.files.delete
+      begin
+        actionlogtitle = "Delete File(s) [ %PATH_Output_Root%\\*.drc ]"
+        deletehidden = false
+        deletereadonly = false
+        failifnofile = false
+        filespec = %PATH_Output_Version%\\*.drc
+        id = {C79D6CE5-F405-4D6F-8944-A25EC509CF69}
+      end
+      action.files.delete
+      begin
+        actionlogtitle = "Delete File(s) [ %PATH_Output_Root%\\*.map ]"
+        deletehidden = false
+        deletereadonly = false
+        failifnofile = false
+        filespec = %PATH_Output_Version%\\*.map
+        id = {7120F84E-B4A0-4BDC-AEF2-65E1F0C1E1E8}
+      end
+    end
+  end
+  variable
+  begin
+    name = BUILD_DateTime
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = CFG_Application_Filename
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = CFG_Build_Root
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = CFG_Certificate_Filename
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = CFG_Certificate_Password
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = CFG_Company_Name
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = CFG_Credentials_Filename
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = CFG_Delphi_Icon
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = CFG_Delphi_Project
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = CFG_Git_AccessToken
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = CFG_Git_Username
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = CFG_Product_Name
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = CFG_Repo_Url
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = GIT_Commit_Hash
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = GIT_Tag
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = PATH_Output_Root
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = PATH_Output_Version
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = PATH_Work_Project
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = PATH_Work_Root
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    defaultvalue = False
+    name = TMP_CopyToDev
+    variablescope = vtProject
+    variabletype = btBoolean
+  end
+  variable
+  begin
+    defaultvalue = False
+    name = TMP_CopyToStaging
+    variablescope = vtProject
+    variabletype = btBoolean
+  end
+  variable
+  begin
+    defaultvalue = False
+    name = TMP_CopyToTest
+    variablescope = vtProject
+    variabletype = btBoolean
+  end
+  variable
+  begin
+    name = TMP_Git_Status
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    name = TMP_Remote_Filename
+    variablescope = vtProject
+    variabletype = btString
+  end
+  variable
+  begin
+    defaultvalue = 1
+    name = VERSION_Major
+    variablescope = vtProject
+    variabletype = btInteger
+  end
+  variable
+  begin
+    defaultvalue = 0
+    name = VERSION_Minor
+    variablescope = vtProject
+    variabletype = btInteger
+  end
+  variable
+  begin
+    defaultvalue = 0
+    name = VERSION_Release
+    variablescope = vtProject
+    variabletype = btInteger
+  end
+end

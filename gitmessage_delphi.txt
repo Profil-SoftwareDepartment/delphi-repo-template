@@ -1,0 +1,20 @@
+<type>(<scope>): <summary in imperative form>
+
+# Warum ist diese Änderung notwendig?
+# Was wurde geändert?
+# Gibt es Risiken oder Seiteneffekte?
+
+# Beispiele:
+# feat(customer): add credit limit check
+# fix(build): correct Git hash injection
+
+# Erlaubte Werte für type
+# feat      – neue Funktionalität
+# fix       – Bugfix
+# refactor  – Code-Umstrukturierung ohne Funktionsänderung
+# perf      – Performance-Verbesserung
+# test      – Tests
+# build     – Build-/CI-Themen
+# docs      – Dokumentation
+# style     – Formatierung (kein Code-Change)
+# chore     – Wartung, Cleanup
