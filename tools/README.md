@@ -68,7 +68,7 @@ ausgeführt.
 
 ### CheckPasswordDFM.exe
 
-prüft ob in DFM-Dateien Username SYSDBA bzw. unsere Datenbankpasswörter unverschlüsselt enthalten sind.
+prüft, ob in DFM-Dateien der Benutzername SYSDBA bzw. unsere Datenbankpasswörter unverschlüsselt enthalten sind.
 
 ---
 
