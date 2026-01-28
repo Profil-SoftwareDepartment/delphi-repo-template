@@ -123,7 +123,7 @@ call :download "%FINALBUILDER_INI_URL%" "%SCRIPT_DIR%finalbuilder\FinalBuilder.i
 if errorlevel 1 set /a ERROR_COUNT+=1
 
 REM manifest
-call :download "%MANIFEST_URL%" "%SCRIPT_DIR%manifest.xml"
+call :download "%MANIFEST_URL%" "%SCRIPT_DIR%src\manifest.xml"
 if errorlevel 1 set /a ERROR_COUNT+=1
 
 
