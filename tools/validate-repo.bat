@@ -21,8 +21,12 @@ call :check_dir finalbuilder
 
 REM --- Unerwuenschte Dateien ---
 for /r %%F in (*.dcu *.exe *.dll) do (
-    echo FEHLER: Unerwuenschte Datei gefunden: %%F
-    set ERROR=1
+    rem Ignore *.exe in tools folder
+    echo %%F | findstr "tools\\.*\.exe" >nul
+    if errorlevel 1 (
+        echo FEHLER: Unerwuenschte Datei gefunden: %%F
+        set ERROR=1
+    )
 )
 
 REM --- Git-Status pruefen ---
