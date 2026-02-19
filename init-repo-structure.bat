@@ -134,7 +134,7 @@ call :download "%STYLEGUIDE_URL%" "%SCRIPT_DIR%STYLEGUIDE.md"
 if errorlevel 1 set /a ERROR_COUNT+=1
 
 REM Development rules
-call :download "%DEV_RULES_URL%" "%SCRIPT_DIR%DEVELOPMENT_RULES.md
+call :download "%DEV_RULES_URL%" "%SCRIPT_DIR%DEVELOPMENT_RULES.md"
 if errorlevel 1 set /a ERROR_COUNT+=1
 
 
