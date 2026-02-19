@@ -1,8 +1,3 @@
-Hier ist eine **produktionsreife `copilot-instructions.md`** für eure **Delphi Client-Server Repositories**.
-Sie ist strikt genug für Enterprise-Umgebungen, aber praxisnah für tägliche Entwicklung.
-
----
-
 # copilot-instructions.md
 
 ## Repository Scope
@@ -226,13 +221,3 @@ When relevant:
 4. Prefer testable code
 5. Generate tests when feasible
 6. Avoid unnecessary dependencies
-
----
-
-Wenn du möchtest, kann ich dir zusätzlich:
-
-* eine **striktere Version mit CI-Check-Regeln**
-* eine ergänzende **`DEVELOPMENT_RULES.md`**
-* oder ein **Copilot Guardrail-Template speziell für Client-Server-Architektur**
-
-Sag mir, wie stark ihr Copilot disziplinieren wollt.
