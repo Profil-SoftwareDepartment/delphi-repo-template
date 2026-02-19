@@ -25,12 +25,16 @@ All contributors and AI-assisted tooling must comply.
 
 Example:
 
+```delphi
 CustomerService.pas
 OrderRepository.pas
+```
 
 Forbidden:
+```delphi
 profil_adm_import.pas  
 Profil.*.pas  
+```
 
 ---
 
@@ -40,8 +44,10 @@ Profil.*.pas
 - PascalCase
 
 Example:
+```delphi
 TOrderService
 TCustomerRepository
+```
 
 ---
 
@@ -51,8 +57,11 @@ TCustomerRepository
 - PascalCase
 
 Example:
+
+```delphi
 IOrderService
 ILogger
+```
 
 ---
 
@@ -62,8 +71,10 @@ ILogger
 - PascalCase
 
 Example:
+```delphi
 FRepository
 FConnection
+```
 
 ---
 
@@ -74,21 +85,40 @@ FConnection
 - Boolean functions must start with Is, Has, Can, Should
 
 Example:
+
+```delphi
 LoadCustomer
 SaveOrder
 IsValid
 HasPermission
+```
+
+### 2.5.1 Parameters
+
+- PascalCase
+- Parameters must start with A
+
+Example
+
+```delphi
+ACustomer
+AQuery
+AValue
+```
 
 ---
 
 ## 2.6 Constants
 
-- Prefix: c or C_
+- Prefix: c or C_ or SQL_
 - Uppercase or PascalCase (must be consistent within a unit)
 
 Example:
+```delphi
 cDefaultTimeout
 C_MAX_RETRIES
+SQL_UPDATE_TABLE
+```
 
 ---
 
@@ -118,9 +148,6 @@ Units must follow this order:
   - System
   - Third-party
   - Project units
-- Never introduce:
-  - Profil.* units
-  - profil_adm_import.pas
 
 ---
 
@@ -130,14 +157,19 @@ Units must follow this order:
 - One statement per line
 - No trailing whitespace
 - Line length ≤ 120 characters
-- Always use begin/end blocks, even for single statements
+- Always use begin/end blocks
+- begin/end blocks can be omitted for single statements
+- The last statement in a begin/end block must end with a semicolon
 
 Example:
 
+```delphi
 if Condition then
 begin
   DoSomething;
+  DoAnotherThing;
 end;
+```
 
 ---
 
