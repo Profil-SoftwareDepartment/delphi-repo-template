@@ -18,7 +18,7 @@ Präfixe:
 
 ```CFG``` für Werte aus ini
 ```PATH``` für Pfade
-```GIT```für Werte aus git
+```GIT``` für Werte aus git
 ```TMP``` Temporäre Variablen
 ```VERSION``` Versionsinformationen aus ini
 
