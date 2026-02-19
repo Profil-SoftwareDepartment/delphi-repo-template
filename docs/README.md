@@ -10,6 +10,7 @@ Ziel ist es, **Wissen dauerhaft im Repository zu verankern** und nicht an Person
 
 Typische Unterverzeichnisse:
 
+```text
 docs/
 ├─ architecture/
 │ └─ overview.md
@@ -20,7 +21,7 @@ docs/
 ├─ release-notes/
 │ └─ 3.2.0.md
 └─ README.md
-
+```
 ---
 
 ## Architektur

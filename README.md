@@ -4,4 +4,8 @@ Dies ist ein öffentliches Repository, um unsere grundlegende Repository-Struktu
 
 ## Nutzung
 
-init-repo-structure.bat im leeren Verzeichnis ausführen. Daraufhin werden die Ordner, eine .gitignore, eine README.md und Issue Templates erstellt.
+1. Repository auf github erstellen 
+2. Neues Repository klonen
+3. init-repo-structure.bat in geklontes Repository kopieren
+4. init-repo-structure.bat ausführen
+5. init-repo-structure.bat löschen
