@@ -12,15 +12,15 @@
 
 ### Namensschema (formal)
 
-```<PREFIX>_<DOMÄNE>_<BESCHREIBUNG>```
+`<PREFIX>_<DOMÄNE>_<BESCHREIBUNG>`
 
 Präfixe:
 
-```CFG``` für Werte aus ini
-```PATH``` für Pfade
-```GIT``` für Werte aus git
-```TMP``` Temporäre Variablen
-```VERSION``` Versionsinformationen aus ini
+`CFG` für Werte aus ini
+`PATH` für Pfade
+`GIT` für Werte aus git
+`TMP` Temporäre Variablen
+`VERSION` Versionsinformationen aus ini
 
 Beispiele:
 

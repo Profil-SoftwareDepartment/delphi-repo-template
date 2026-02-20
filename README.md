@@ -38,9 +38,9 @@ Die Struktur kann projektspezifisch erweitert werden, sollte aber grundsätzlich
 
 * Erstelle ein neues Repository auf GitHub
 * Klone das Repository auf deinem PC
-* Kopiere ```init-repo-structure.bat``` in das Repository
-* Führe ```init-repo-structure.bat``` aus
-* ```init-repo-structure.bat``` kann nun gelöscht werden
+* Kopiere `init-repo-structure.bat` in das Repository
+* Führe `init-repo-structure.bat` aus
+* `init-repo-structure.bat` kann nun gelöscht werden
 
 Das Skript:
 
