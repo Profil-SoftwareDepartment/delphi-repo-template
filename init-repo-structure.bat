@@ -55,9 +55,7 @@ if exist "%outfile%" (
     endlocal & exit /b 0
 )
 REM Show relative path from script dir for logging clarity
-set "relpath=%outfile%"
-if not "%relpath:~0,%SCRIPT_DIR:~0,-1%"=="" set "relpath=!relpath:%SCRIPT_DIR%=!"
-echo Lade !relpath!...
+echo Lade %outfile%...
 powershell -NoProfile -Command "try { Invoke-WebRequest -Uri '%url%' -OutFile '%outfile%' -ErrorAction Stop } catch { exit 1 }"
 if errorlevel 1 (
     echo FEHLER: Datei konnte nicht heruntergeladen werden: !relpath!
