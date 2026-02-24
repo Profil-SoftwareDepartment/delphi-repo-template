@@ -20,6 +20,9 @@ set "MANIFEST_URL=%BASE_URL%/src/manifest.xml"
 set "TOOLS_URL=%BASE_URL%/tools"
 set "ISSUE_URL=%BASE_URL%/.github/ISSUE_TEMPLATE"
 set "WORKFLOW_URL=%BASE_URL%/.github/workflows"
+set "INSTRUCTIONS_URL=%BASE_URL%/copilot-instructions.md"
+set "STYLEGUIDE_URL=%BASE_URL%/STYLEGUIDE.md"
+set "DEV_RULES_URL=%BASE_URL%/DEVELOPMENT_RULES.md"
 set "PRE_COMMIT_URL=%BASE_URL%/pre-commit-hook"
 
 set "SCRIPT_DIR=%~dp0"
@@ -130,8 +133,20 @@ if errorlevel 1 set /a ERROR_COUNT+=1
 call :download "%FINALBUILDER_INI_URL%" "%SCRIPT_DIR%finalbuilder\FinalBuilder.ini"
 if errorlevel 1 set /a ERROR_COUNT+=1
 
-REM manifest
-call :download "%MANIFEST_URL%" "%SCRIPT_DIR%src\manifest.xml"
+REM Manifest
+call :download "%MANIFEST_URL%" "%SCRIPT_DIR%src/manifest.xml"
+if errorlevel 1 set /a ERROR_COUNT+=1
+
+REM Copilot Instructions
+call :download "%INSTRUCTIONS_URL%" "%SCRIPT_DIR%.github\copilot-instructions.md"
+if errorlevel 1 set /a ERROR_COUNT+=1
+
+REM styleguide
+call :download "%STYLEGUIDE_URL%" "%SCRIPT_DIR%STYLEGUIDE.md"
+if errorlevel 1 set /a ERROR_COUNT+=1
+
+REM Development rules
+call :download "%DEV_RULES_URL%" "%SCRIPT_DIR%DEVELOPMENT_RULES.md"
 if errorlevel 1 set /a ERROR_COUNT+=1
 
 
