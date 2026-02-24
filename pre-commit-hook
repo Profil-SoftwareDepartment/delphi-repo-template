@@ -1,0 +1,4 @@
+#!/bin/sh
+echo 
+exec \\\\Server3\\Verwaltung\\Software Development\\Tools\\CheckPasswordDFM.exe .
+exit

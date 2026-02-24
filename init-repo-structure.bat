@@ -20,6 +20,7 @@ set "MANIFEST_URL=%BASE_URL%/src/manifest.xml"
 set "TOOLS_URL=%BASE_URL%/tools"
 set "ISSUE_URL=%BASE_URL%/.github/ISSUE_TEMPLATE"
 set "WORKFLOW_URL=%BASE_URL%/.github/workflows"
+set "PRE_COMMIT_URL=%BASE_URL%/pre-commit-hook"
 
 set "SCRIPT_DIR=%~dp0"
 set "ERROR_COUNT=0"
@@ -85,6 +86,9 @@ if errorlevel 1 set /a ERROR_COUNT+=1
 call :download "%GITMESSAGE_URL%" "%SCRIPT_DIR%gitmessage.txt"
 if errorlevel 1 set /a ERROR_COUNT+=1
 
+call :download "%PRE_COMMIT_URL%" "%SCRIPT_DIR%.git\hooks\pre-commit"
+if errorlevel 1 set /a ERROR_COUNT+=1
+
 REM Issue templates
 for %%T in (
     bug_report.md
@@ -109,6 +113,7 @@ for %%T in (
     format-code.bat
 	generate-release-notes.bat
 	validate-repo.bat
+	CheckPasswordDFM.exe
 ) do (
     call :download "%TOOLS_URL%/%%T" "%SCRIPT_DIR%tools\%%T"
     if errorlevel 1 set /a ERROR_COUNT+=1
