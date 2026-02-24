@@ -30,5 +30,5 @@ Kurze Erklärung der wichtigsten Verzeichnisse:
 ├─ docs/           Projektdokumentation
 ├─ finalbuilder/   FinalBuilder
 ├─ tests/          optional: Für Unit-Tests
-└─ tools/          optional: Hilfsskripte / Tools
+└─ tools/          Hilfsskripte / Tools
 ```
