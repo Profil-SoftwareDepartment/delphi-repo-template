@@ -51,10 +51,13 @@ set "outfile=%~2"
 if exist "%outfile%" (
     endlocal & exit /b 0
 )
-echo Lade %~nx2...
+REM Show relative path from script dir for logging clarity
+set "relpath=%outfile%"
+if not "%relpath:~0,%SCRIPT_DIR:~0,-1%"=="" set "relpath=!relpath:%SCRIPT_DIR%=!"
+echo Lade !relpath!...
 powershell -NoProfile -Command "try { Invoke-WebRequest -Uri '%url%' -OutFile '%outfile%' -ErrorAction Stop } catch { exit 1 }"
 if errorlevel 1 (
-    echo FEHLER: Datei konnte nicht heruntergeladen werden: %outfile%
+    echo FEHLER: Datei konnte nicht heruntergeladen werden: !relpath!
     echo Bitte URL pruefen: %url%
     endlocal & exit /b 1
 )
@@ -128,7 +131,7 @@ call :download "%FINALBUILDER_INI_URL%" "%SCRIPT_DIR%finalbuilder\FinalBuilder.i
 if errorlevel 1 set /a ERROR_COUNT+=1
 
 REM manifest
-call :download "%MANIFEST_URL%" "%SCRIPT_DIR%manifest.xml"
+call :download "%MANIFEST_URL%" "%SCRIPT_DIR%src\manifest.xml"
 if errorlevel 1 set /a ERROR_COUNT+=1
 
 
