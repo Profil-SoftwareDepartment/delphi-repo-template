@@ -27,6 +27,7 @@ tools/
 ├─ format-code.bat
 ├─ generate-release-notes.bat
 ├─ validate-repo.bat
+├─ CheckPasswordDFM.exe
 └─ README.md
 
 ```
@@ -62,6 +63,12 @@ Dieses Skript wird:
 - optional lokal vor Commits
 
 ausgeführt.
+
+---
+
+### CheckPasswordDFM.exe
+
+prüft, ob in DFM-Dateien der Benutzername SYSDBA bzw. unsere Datenbankpasswörter unverschlüsselt enthalten sind.
 
 ---
 

@@ -17,7 +17,7 @@ Tests sind kein Selbstzweck, sondern ein **Werkzeug zur Risikominimierung**.
 ---
 
 ## Struktur
-
+```text
 tests/
 ├─ unit/
 │ └─ README.md
@@ -25,7 +25,7 @@ tests/
 │ └─ README.md
 ├─ testdata/
 └─ README.md
-
+```
 
 ---
 

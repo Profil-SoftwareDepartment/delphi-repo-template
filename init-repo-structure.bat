@@ -23,6 +23,7 @@ set "WORKFLOW_URL=%BASE_URL%/.github/workflows"
 set "INSTRUCTIONS_URL=%BASE_URL%/copilot-instructions.md"
 set "STYLEGUIDE_URL=%BASE_URL%/STYLEGUIDE.md"
 set "DEV_RULES_URL=%BASE_URL%/DEVELOPMENT_RULES.md"
+set "PRE_COMMIT_URL=%BASE_URL%/pre-commit-hook"
 
 set "SCRIPT_DIR=%~dp0"
 set "ERROR_COUNT=0"
@@ -53,10 +54,13 @@ set "outfile=%~2"
 if exist "%outfile%" (
     endlocal & exit /b 0
 )
-echo Lade %~nx2...
+REM Show relative path from script dir for logging clarity
+set "relpath=%outfile%"
+if not "%relpath:~0,%SCRIPT_DIR:~0,-1%"=="" set "relpath=!relpath:%SCRIPT_DIR%=!"
+echo Lade !relpath!...
 powershell -NoProfile -Command "try { Invoke-WebRequest -Uri '%url%' -OutFile '%outfile%' -ErrorAction Stop } catch { exit 1 }"
 if errorlevel 1 (
-    echo FEHLER: Datei konnte nicht heruntergeladen werden: %outfile%
+    echo FEHLER: Datei konnte nicht heruntergeladen werden: !relpath!
     echo Bitte URL pruefen: %url%
     endlocal & exit /b 1
 )
@@ -88,6 +92,9 @@ if errorlevel 1 set /a ERROR_COUNT+=1
 call :download "%GITMESSAGE_URL%" "%SCRIPT_DIR%gitmessage.txt"
 if errorlevel 1 set /a ERROR_COUNT+=1
 
+call :download "%PRE_COMMIT_URL%" "%SCRIPT_DIR%.git\hooks\pre-commit"
+if errorlevel 1 set /a ERROR_COUNT+=1
+
 REM Issue templates
 for %%T in (
     bug_report.md
@@ -112,6 +119,7 @@ for %%T in (
     format-code.bat
 	generate-release-notes.bat
 	validate-repo.bat
+	CheckPasswordDFM.exe
 ) do (
     call :download "%TOOLS_URL%/%%T" "%SCRIPT_DIR%tools\%%T"
     if errorlevel 1 set /a ERROR_COUNT+=1

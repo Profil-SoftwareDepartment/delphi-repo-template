@@ -12,7 +12,30 @@
 
 ### Namensschema (formal)
 
-```<PREFIX>_<DOMÄNE>_<BESCHREIBUNG>```
+`<PREFIX>_<DOMÄNE>_<BESCHREIBUNG>`
+
+Präfixe:
+
+`CFG` für Werte aus ini
+`PATH` für Pfade
+`GIT` für Werte aus git
+`TMP` Temporäre Variablen
+`VERSION` Versionsinformationen aus ini
+
+Beispiele:
+
+```text
+CFG_Build_Root
+CFG_Delphi_Project
+GIT_Tag
+GIT_Commit_Hash
+PATH_Output_Root
+PATH_Work_Root
+TMP_CopyToDev
+TMP_CopyToTest
+VERSION_Major
+VERSION_Minor
+```
 
 ## Struktur
 
@@ -58,6 +81,7 @@ end
 * Signtool
 
 ### Package
+
 Kopieren der Exe nach 
 * Dev
 * Test
